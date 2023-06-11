@@ -18,6 +18,7 @@ module SR_latch_test;
       S = 1'b1; R = 1'b1;
       #5 S = 1'b0; R = 1'b1;
       #5 S = 1'b1; R = 1'b0;
+      #5 S = 1'b0; R = 1'b0;
       #5 S = 1'b1; R = 1'b1;
     end
 endmodule
