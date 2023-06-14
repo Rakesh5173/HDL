@@ -1,17 +1,40 @@
-// Procedural description creating a MUX2x1 using if & else statements ( generally a varisble index on the RHS of an expression also results in a MUX)
+// 4bit counter with asynchronous reset
 
-module mux21 (in0,in1,sel,y);
-  input in0,in1,sel;
-  output reg y; // reg: as y goes on LHS of the exp
+module counter(rst, clk, count);
+  input clk,rst;
+  output reg [3:0] count;
   
-  always @(in0 or in1 or sel) // always @(in0,in1,sel) // or always(*) here it satisfies
+  always @(posedge clk or posedge rst) // for synchronous reset remove posedge rst
     begin
-      if(sel)
-        y = in1;
+      if(rst)
+        count<=0;
       else
-        y = in0;
+        count +=1;
     end
 endmodule
 
+// Code your testbench here
+// or browse Examples
+module counter_tb;
+  reg clk;
+  reg rst;
+  wire [3:0] count;
 
+  counter dut(.clk(clk), .rst(rst), .count(count));
 
+  initial begin
+    clk = 0;
+    rst = 1;
+    #20;
+    rst = 0;
+  end
+
+  always #5 clk = ~clk;
+
+  initial begin
+    for (int i = 0; i < 16; i++) begin
+      #10;
+      $display("count = %d", count);
+    end
+  end
+endmodule
