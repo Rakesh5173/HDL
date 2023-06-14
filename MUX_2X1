@@ -1,0 +1,17 @@
+// Procedural description creating a MUX2x1 using if & else statements ( generally a varisble index on the RHS of an expression also results in a MUX)
+
+module mux21 (in0,in1,sel,y);
+  input in0,in1,sel;
+  output reg y; // reg: as y goes on LHS of the exp
+  
+  always @(in0 or in1 or sel) // always @(in0,in1,sel) // or always(*) here it satisfies
+    begin
+      if(sel)
+        y = in1;
+      else
+        y = in0;
+    end
+endmodule
+
+
+
