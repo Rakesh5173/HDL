@@ -1,16 +1,14 @@
 // 4bit counter with asynchronous reset
 
-module counter(rst, clk, count);
+module mux21(rst, clk, a,b,sel,f);
   input clk,rst;
-  output reg [3:0] count;
-  
-  always @(posedge clk or posedge rst) // for synchronous reset remove posedge rst
-    begin
-      if(rst)
-        count<=0;
-      else
-        count +=1;
-    end
+  input [7:0] a;
+  input [7:0] b;
+  input sel;
+  output [7:0] f;
+
+  assign f = {8{~sel} & a} | {8{sel} & b}
+
 endmodule
 
 // Code your testbench here
