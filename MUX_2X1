@@ -7,7 +7,7 @@ module mux21(rst, clk, a,b,sel,f);
   input sel;
   output [7:0] f;
 
-  assign f = {8{~sel} & a} | {8{sel} & b}
+  assign f = ({8{~sel}} & a) | ({8{sel}} & b)
 
 endmodule
 
